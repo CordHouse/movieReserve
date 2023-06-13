@@ -25,8 +25,6 @@ public class TokenProvider implements InitializingBean {
     private Key key;
     private String secret;
     private Long tokenValidationTime;
-    private Long refreshTokenValidationTime;
-    private String refresh_token;
 
     // build.gradle -> jwt 의존성 추가해주어야 가능하다.
     // secret은 보안되어야 하기 때문에 application.yml 에서 작성 후 적용
@@ -45,18 +43,16 @@ public class TokenProvider implements InitializingBean {
                          @Value("${jwt.secret}") String secret) {
         this.secret = secret;
         this.tokenValidationTime = tokenValidationTime * 2 * 1000;
-        this.refreshTokenValidationTime = tokenValidationTime * 24 * 7 * 1000;
     }
 
     // 토큰 생성
-    public TokenResponseDto createToken(Authentication authentication) {
+    public String createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities()
                 .stream().map(s -> s.getAuthority()).collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
 
         Date expirationTime = new Date(now + tokenValidationTime); // 토큰정보 만료시간
-        Date refreshTokenExpirationTime = new Date(now + refreshTokenValidationTime); // 리프레시 토큰정보 만료시간
 
         String access_token = Jwts.builder()
                 .setSubject(authentication.getName())
@@ -65,16 +61,7 @@ public class TokenProvider implements InitializingBean {
                 .signWith(this.key, SignatureAlgorithm.HS512)
                 .compact();
 
-        refresh_token = Jwts.builder()
-                .setExpiration(refreshTokenExpirationTime)
-                .signWith(this.key, SignatureAlgorithm.HS512)
-                .compact();
-
-        return new TokenResponseDto().toDo(access_token);
-    }
-
-    public String getRefreshToken() {
-        return refresh_token;
+        return access_token;
     }
 
     // 토큰을 통해 Authentication 객체 생성
