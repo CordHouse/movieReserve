@@ -1,5 +1,6 @@
 package com.example.moviereserve.controller;
 
+import com.example.moviereserve.entity.User;
 import com.example.moviereserve.response.Response;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,7 @@ import javax.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private static final UserService userService;
+    private final UserService userService;
 
     /**
      * 사업자 회원가입
@@ -39,6 +40,8 @@ public class UserController {
     @PostMapping("/sign-in")
     @ResponseStatus(HttpStatus.OK)
     public Response signIn(@RequestBody @Valid UserSignInRequestDto requestDto) {
-        return Response.success(userService.signIn(requestDto));
+        User user = userRepository.findByName(requestDto.getName())
+                .orElseThrow(LoginFailureException::new);
+        return Response.success(userService.signIn(requestDto, user));
     }
 }
