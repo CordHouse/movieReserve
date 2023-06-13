@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         // 여기 유저 패스워드 토큰으로 교체해보자
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(),
+                user.getEmail(),
                 user.getPassword(),
                 Collections.singleton(simpleGrantedAuthority));
     }
