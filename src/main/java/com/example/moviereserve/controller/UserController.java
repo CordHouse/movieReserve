@@ -15,15 +15,30 @@ import javax.validation.Valid;
 public class UserController {
     private static final UserService userService;
 
+    /**
+     * 사업자 회원가입
+     */
     @PostMapping("/businesses")
     @ResponseStatus(HttpStatus.OK)
-    private Response businessSignUp(@RequestBody @Valid BusinessSignUpDto businessSignUpDto) {
+    private Response businessSignUp(@RequestBody @Valid BusinessSignUpRequestDto businessSignUpRequestDto) {
         return Response.success(userService.businessSignUp(businessSignUpDto));
     }
 
+    /**
+     * 사용자 회원가입
+     */
     @PostMapping("/users")
     @ResponseStatus(HttpStatus.OK)
-    private Response userSignUp(@RequestBody @Valid UserSignUpDto userSignUpDto) {
-        return Response.success(userService.userSignUpDto(userSignUpDto));
+    private Response userSignUp(@RequestBody @Valid UserSignUpRequestDto userSignUpRequestDto) {
+        return Response.success(userService.userSignUpRequestDto(userSignUpRequestDto));
+    }
+
+    /**
+     * 로그인
+     */
+    @PostMapping("/sign-in")
+    @ResponseStatus(HttpStatus.OK)
+    public Response signIn(@RequestBody @Valid UserSignInRequestDto requestDto) {
+        return Response.success(userService.signIn(requestDto));
     }
 }
