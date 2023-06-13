@@ -1,9 +1,12 @@
 package com.example.moviereserve.service;
 
+import com.example.moviereserve.dto.BusinessSignUpRequestDto;
+import com.example.moviereserve.dto.UserSignUpRequestDto;
 import com.example.moviereserve.entity.RoleUserGrade;
 import com.example.moviereserve.entity.User;
 import com.example.moviereserve.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,29 +16,35 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserSignUpService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+    private static final String SUCCESS = "회원가입 완료";
+    private static final String NOT_BUSINESS = "회원가입 완료";
 
     @Transactional
-    public BusinessSignUpResponseDto businessSignUp(BusinessSignUpRequestDto businessSignUpRequestDto) {
+    public String businessSignUp(BusinessSignUpRequestDto businessSignUpRequestDto) {
         User user = new User(
                 businessSignUpRequestDto.getName(),
                 passwordEncoder.encode(businessSignUpRequestDto.getPassword()),
                 businessSignUpRequestDto.getEmail(),
                 businessSignUpRequestDto.getBusinessLicense(),
-                RoleUserGrade.findUserRole(businessLicense.getType()));
+                RoleUserGrade.findUserRole(businessSignUpRequestDto.getType())
+        );
 
         userRepository.save(user);
-        return new BusinessSignUpResponseDto(user);
+        return SUCCESS;
     }
 
     @Transactional
-    public UserSignUpResponseDto userSignUp(UserSignUpRequestDto userSignUpRequestDto) {
+    public String userSignUp(UserSignUpRequestDto userSignUpRequestDto) {
         User user = new User(
                 userSignUpRequestDto.getName(),
                 passwordEncoder.encode(userSignUpRequestDto.getPassword()),
                 userSignUpRequestDto.getEmail(),
-                RoleUserGrade.ROLE_COMMON_MEMBER);
+                NOT_BUSINESS,
+                RoleUserGrade.ROLE_COMMON_MEMBER
+        );
 
         userRepository.save(user);
-        return new UserSignUpResponseDto(user);
+        return SUCCESS;
     }
 }
