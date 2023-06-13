@@ -49,7 +49,7 @@ public class UserController {
     @PostMapping("/sign-in")
     @ResponseStatus(HttpStatus.OK)
     private Response signIn(@RequestBody @Valid SignInRequestDto requestDto) {
-        User user = userRepository.findByName(requestDto.getName())
+        User user = userRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(LoginFailureException::new);
         return Response.success(userSignInService.signIn(requestDto, user));
     }
