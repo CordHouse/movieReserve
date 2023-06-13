@@ -18,9 +18,6 @@ public class User {
     @Column(nullable = false, length = 5)
     private String name;
 
-    @Column(nullable = false, unique = true)
-    private String username;
-
     @Column(nullable = false)
     private String password;
 
@@ -41,9 +38,8 @@ public class User {
         this.createDate = LocalDate.now();
     }
 
-    public User(String name, String username, String password, String email, String businessLicense, RoleUserGrade roleUserGrade){
+    public User(String name, String password, String email, String businessLicense, RoleUserGrade roleUserGrade){
         this.name = name;
-        this.username = username;
         this.password = password;
         this.email = email;
         this.businessLicense = businessLicense;
