@@ -18,7 +18,7 @@ public class UserSignUpService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private static final String SUCCESS = "회원가입 완료";
-    private static final String NOT_BUSINESS = "회원가입 완료";
+    private static final String NOT_BUSINESS = "-";
 
     @Transactional
     public String businessSignUp(BusinessSignUpRequestDto businessSignUpRequestDto) {
