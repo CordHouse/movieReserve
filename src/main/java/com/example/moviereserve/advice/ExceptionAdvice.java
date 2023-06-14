@@ -22,4 +22,16 @@ public class ExceptionAdvice {
     public Response loginFailureException() {
         return Response.failure(400, "로그인이 실패하였습니다.");
     }
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response duplicateEmailException() {
+        return Response.failure(500, "이미 가입한 이메일입니다.");
+    }
+
+    @ExceptionHandler(DuplicateLicenseException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response duplicateLicenseException() {
+        return Response.failure(500, "이미 등록된 라이센스입니다.");
+    }
 }
