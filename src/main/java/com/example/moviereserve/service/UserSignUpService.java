@@ -20,8 +20,13 @@ public class UserSignUpService {
     private static final String SUCCESS = "회원가입 완료";
     private static final String NOT_BUSINESS = "-";
 
+    // 사업자 회원가입
     @Transactional
     public String businessSignUp(BusinessSignUpRequestDto businessSignUpRequestDto) {
+        // 이메일 & 라이센스 중복체크
+        emailAndLicenseDuplicateCheck(businessSignUpRequestDto.getEmail(),
+                businessSignUpRequestDto.getBusinessLicense());
+
         User user = new User(
                 businessSignUpRequestDto.getName(),
                 passwordEncoder.encode(businessSignUpRequestDto.getPassword()),
@@ -34,8 +39,13 @@ public class UserSignUpService {
         return SUCCESS;
     }
 
+    // 사용자 회원가입
     @Transactional
     public String userSignUp(UserSignUpRequestDto userSignUpRequestDto) {
+        // 이메일 & 라이센스 중복체크
+        emailAndLicenseDuplicateCheck(businessSignUpRequestDto.getEmail(),
+                businessSignUpRequestDto.getBusinessLicense());
+
         User user = new User(
                 userSignUpRequestDto.getName(),
                 passwordEncoder.encode(userSignUpRequestDto.getPassword()),
@@ -46,5 +56,15 @@ public class UserSignUpService {
 
         userRepository.save(user);
         return SUCCESS;
+    }
+
+    // 이메일 & 라이센스 중복체크
+    private void emailAndLicenseDuplicateCheck(String email, String license) {
+        userRepository.findByEmailOrBusinessLicense(email, license).ifPresent(findUser -> {
+            if(findUser.getEmail().equals(email)) {
+                throw new DuplicateEmailException();
+            }
+            throw new DuplicateLicenseException();
+        });
     }
 }
