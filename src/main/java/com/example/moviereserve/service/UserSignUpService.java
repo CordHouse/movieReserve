@@ -4,6 +4,8 @@ import com.example.moviereserve.dto.BusinessSignUpRequestDto;
 import com.example.moviereserve.dto.UserSignUpRequestDto;
 import com.example.moviereserve.entity.RoleUserGrade;
 import com.example.moviereserve.entity.User;
+import com.example.moviereserve.exception.DuplicateEmailException;
+import com.example.moviereserve.exception.DuplicateLicenseException;
 import com.example.moviereserve.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -42,9 +44,9 @@ public class UserSignUpService {
     // 사용자 회원가입
     @Transactional
     public String userSignUp(UserSignUpRequestDto userSignUpRequestDto) {
-        // 이메일 & 라이센스 중복체크
-        emailAndLicenseDuplicateCheck(businessSignUpRequestDto.getEmail(),
-                businessSignUpRequestDto.getBusinessLicense());
+        // 이메일 중복체크
+        emailAndLicenseDuplicateCheck(userSignUpRequestDto.getEmail(),
+                null);
 
         User user = new User(
                 userSignUpRequestDto.getName(),
