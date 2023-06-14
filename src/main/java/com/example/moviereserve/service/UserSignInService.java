@@ -19,7 +19,8 @@ public class UserSignInService {
 
     private final TokenProvider tokenProvider;
 
-    @Transactional
+    // 로그인
+    @Transactional(readOnly = true)
     public UserSignInResponseDto signIn(SignInRequestDto signInRequestDto, User user) {
         if(!passwordEncoder.matches(signInRequestDto.getPassword(), user.getPassword())) {
             throw new LoginFailureException();
