@@ -6,6 +6,7 @@ import com.example.moviereserve.config.jwt.JwtSecurityConfig;
 import com.example.moviereserve.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -18,6 +19,12 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final AuthenticationEntryPointHandler AuthenticationEntryPointHandler;
+
+    private static final String[] WHITE_LIST = {
+            "/businesses",
+            "/users",
+            "/sign-in",
+    };
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -38,7 +45,9 @@ public class SecurityConfig {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers().permitAll() // 추후 권한 설정 예정
+                .antMatchers(HttpMethod.POST, WHITE_LIST).permitAll()
+                .antMatchers("/**").access("hasRole(\"ROLE_ADMIN\") or hasRole(\"ROLE_VENUE_MANAGER\")" +
+                        " or hasRole(\"ROLE_PERFORMANCE_MANAGER\") or hasRole(\"ROLE_COMMON_MEMBER\")") // 화이트리스트 제외한 모든 경로는 유저 권한이 있어야함.
                 .anyRequest().authenticated()
 
                 .and()

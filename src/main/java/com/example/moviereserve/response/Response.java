@@ -14,11 +14,11 @@ public class Response {
     private Result result;
 
     public static Response success(){
-        return new Response(0, true, null);
+        return new Response(200, true, null);
     }
 
     public static <T> Response success(T data){
-        return new Response(0, true, new Success<>(data));
+        return new Response(200, true, new Success<>(data));
     }
 
     public static Response failure(int code, String msg){
