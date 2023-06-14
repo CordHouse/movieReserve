@@ -1,5 +1,7 @@
 package com.example.moviereserve.advice;
 
+import com.example.moviereserve.exception.DuplicateEmailException;
+import com.example.moviereserve.exception.DuplicateLicenseException;
 import com.example.moviereserve.exception.LoginFailureException;
 import com.example.moviereserve.exception.NotFoundUserException;
 import com.example.moviereserve.response.Response;
