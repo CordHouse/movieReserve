@@ -7,7 +7,6 @@ import com.example.moviereserve.entity.User;
 import com.example.moviereserve.exception.LoginFailureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,19 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserSignInService {
     private final BCryptPasswordEncoder passwordEncoder;
 
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
     private final TokenProvider tokenProvider;
 
-    @Transactional
+    // 로그인
+    @Transactional(readOnly = true)
     public UserSignInResponseDto signIn(SignInRequestDto signInRequestDto, User user) {
         if(!passwordEncoder.matches(signInRequestDto.getPassword(), user.getPassword())) {
             throw new LoginFailureException();
         }
 
-        UsernamePasswordAuthenticationToken authenticationToken = getAuthentication(user);
-
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+        Authentication authentication = getAuthentication(user);
 
         return new UserSignInResponseDto(tokenProvider.createToken(authentication));
     }
