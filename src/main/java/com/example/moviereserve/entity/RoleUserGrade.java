@@ -17,7 +17,7 @@ public enum RoleUserGrade {
     // 전역으로 설정하여 언제든 클래스로 호출 할 수 있음
     public static RoleUserGrade findUserRole(String keyCode){
         return Arrays.stream(RoleUserGrade.values())
-                .filter(roleUserGrade -> roleUserGrade.name().equals(keyCode))
+                .filter(roleUserGrade -> roleUserGrade.getGrade().equals(keyCode))
                 .findAny()
                 .orElseThrow();
     }
