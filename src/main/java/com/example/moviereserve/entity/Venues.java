@@ -19,7 +19,7 @@ public class Venues {
     private String venuesName;
 
     @Column(nullable = false)
-    private String capacity; // 수용량
+    private int capacity; // 수용량
 
     @Column(nullable = false)
     private VenuesType venuesType; // 공연장 형태 -> 서서 보기, 앉아서 보기
@@ -38,7 +38,7 @@ public class Venues {
         this.createDate = LocalDate.now();
     }
 
-    public Venues(String venuesName, String capacity, VenuesType venuesType, String venuesStart, String venuesEnd){
+    public Venues(String venuesName, int capacity, VenuesType venuesType, String venuesStart, String venuesEnd){
         this.venuesName = venuesName;
         this.capacity = capacity;
         this.venuesType = venuesType;
