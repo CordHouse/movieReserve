@@ -5,6 +5,7 @@ import com.example.moviereserve.dto.VenuesSetupRequestDto;
 import com.example.moviereserve.entity.User;
 import com.example.moviereserve.entity.Venues;
 import com.example.moviereserve.entity.VenuesType;
+import com.example.moviereserve.repository.VenuesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
