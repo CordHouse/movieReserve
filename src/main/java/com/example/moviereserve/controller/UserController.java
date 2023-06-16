@@ -2,6 +2,7 @@ package com.example.moviereserve.controller;
 
 import com.example.moviereserve.dto.sign.BusinessSignUpRequestDto;
 import com.example.moviereserve.dto.sign.SignInRequestDto;
+import com.example.moviereserve.dto.sign.UserSignInResponseDto;
 import com.example.moviereserve.dto.sign.UserSignUpRequestDto;
 import com.example.moviereserve.entity.User;
 import com.example.moviereserve.exception.LoginFailureException;
@@ -48,9 +49,9 @@ public class UserController {
      */
     @PostMapping("/sign-in")
     @ResponseStatus(HttpStatus.OK)
-    private Response signIn(@RequestBody @Valid SignInRequestDto requestDto) {
+    private UserSignInResponseDto signIn(@RequestBody @Valid SignInRequestDto requestDto) {
         User user = userRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(LoginFailureException::new);
-        return Response.success(userSignInService.signIn(requestDto, user));
+        return userSignInService.signIn(requestDto, user);
     }
 }
