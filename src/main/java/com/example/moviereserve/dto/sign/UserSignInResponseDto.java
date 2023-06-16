@@ -1,4 +1,4 @@
-package com.example.moviereserve.dto;
+package com.example.moviereserve.dto.sign;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
