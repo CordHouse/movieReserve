@@ -28,8 +28,8 @@ public class VenuesController {
     @PostMapping("/venues")
     @ResponseStatus(HttpStatus.OK)
     private VenuesResponseDto venuesSetup(@RequestBody @Valid VenuesSetupRequestDto venuesSetupRequestDto) {
-        User user = getUser();
-        return venuesService.venuesSetup(venuesSetupRequestDto, user);
+        getUser();
+        return venuesService.venuesSetup(venuesSetupRequestDto);
     }
 
     // 유저 토큰 정보를 기반으로 유저 정보 가져오기
