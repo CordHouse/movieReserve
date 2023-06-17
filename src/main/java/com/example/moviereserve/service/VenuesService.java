@@ -15,8 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class VenuesService {
     private final VenuesRepository venuesRepository;
 
+    // 공연장 등록 -> 관리자만 되도록 설정
     @Transactional
-    public VenuesResponseDto venuesSetup(VenuesSetupRequestDto venuesSetupRequestDto, User user) {
+    public VenuesResponseDto venuesSetup(VenuesSetupRequestDto venuesSetupRequestDto) {
         Venues venues = new Venues(
                 venuesSetupRequestDto.getName(),
                 venuesSetupRequestDto.getCapacity(),
