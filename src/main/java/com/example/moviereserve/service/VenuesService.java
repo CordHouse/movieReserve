@@ -1,7 +1,7 @@
 package com.example.moviereserve.service;
 
-import com.example.moviereserve.dto.VenuesResponseDto;
-import com.example.moviereserve.dto.VenuesSetupRequestDto;
+import com.example.moviereserve.dto.venues.VenuesResponseDto;
+import com.example.moviereserve.dto.venues.VenuesSetupRequestDto;
 import com.example.moviereserve.entity.User;
 import com.example.moviereserve.entity.Venues;
 import com.example.moviereserve.entity.VenuesType;
