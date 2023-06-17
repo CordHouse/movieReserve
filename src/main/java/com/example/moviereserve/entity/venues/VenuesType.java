@@ -1,4 +1,4 @@
-package com.example.moviereserve.entity;
+package com.example.moviereserve.entity.venues;
 
 import java.util.Arrays;
 

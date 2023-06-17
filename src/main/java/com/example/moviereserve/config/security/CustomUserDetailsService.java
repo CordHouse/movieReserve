@@ -1,6 +1,6 @@
 package com.example.moviereserve.config.security;
 
-import com.example.moviereserve.entity.User;
+import com.example.moviereserve.entity.user.User;
 import com.example.moviereserve.exception.NotFoundUserException;
 import com.example.moviereserve.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

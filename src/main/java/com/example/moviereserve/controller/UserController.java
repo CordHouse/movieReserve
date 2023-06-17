@@ -4,7 +4,7 @@ import com.example.moviereserve.dto.sign.BusinessSignUpRequestDto;
 import com.example.moviereserve.dto.sign.SignInRequestDto;
 import com.example.moviereserve.dto.sign.UserSignInResponseDto;
 import com.example.moviereserve.dto.sign.UserSignUpRequestDto;
-import com.example.moviereserve.entity.User;
+import com.example.moviereserve.entity.user.User;
 import com.example.moviereserve.exception.LoginFailureException;
 import com.example.moviereserve.repository.UserRepository;
 import com.example.moviereserve.response.Response;
