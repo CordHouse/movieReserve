@@ -8,9 +8,12 @@ import com.example.moviereserve.exception.LoginFailureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Collections;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +38,7 @@ public class UserSignInService {
      * 유저 정보 확인
      */
     private UsernamePasswordAuthenticationToken getAuthentication(User user) {
-        return new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+        return new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword(),
+                Collections.singleton(new SimpleGrantedAuthority(user.getRoleUserGrade().toString())));
     }
 }
