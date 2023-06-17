@@ -2,8 +2,8 @@ package com.example.moviereserve.service;
 
 import com.example.moviereserve.dto.sign.BusinessSignUpRequestDto;
 import com.example.moviereserve.dto.sign.UserSignUpRequestDto;
-import com.example.moviereserve.entity.RoleUserGrade;
-import com.example.moviereserve.entity.User;
+import com.example.moviereserve.entity.user.RoleUserGrade;
+import com.example.moviereserve.entity.user.User;
 import com.example.moviereserve.exception.DuplicateEmailException;
 import com.example.moviereserve.exception.DuplicateLicenseException;
 import com.example.moviereserve.repository.UserRepository;
