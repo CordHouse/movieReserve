@@ -1,11 +1,14 @@
 package com.example.moviereserve.entity.user;
 
+import com.example.moviereserve.entity.payment.card.CardRegister;
+import com.example.moviereserve.entity.seat.Seat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -29,6 +32,14 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private RoleUserGrade roleUserGrade;
+
+    // 좌석 연관관계
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Seat> seats;
+
+    // 결제 연관관계
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<CardRegister> cards;
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate;
