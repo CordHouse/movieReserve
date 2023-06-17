@@ -3,7 +3,7 @@ package com.example.moviereserve.service;
 import com.example.moviereserve.config.jwt.TokenProvider;
 import com.example.moviereserve.dto.sign.SignInRequestDto;
 import com.example.moviereserve.dto.sign.UserSignInResponseDto;
-import com.example.moviereserve.entity.User;
+import com.example.moviereserve.entity.user.User;
 import com.example.moviereserve.exception.LoginFailureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
