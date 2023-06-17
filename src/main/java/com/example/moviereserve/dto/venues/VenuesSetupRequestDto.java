@@ -1,4 +1,4 @@
-package com.example.moviereserve.dto;
+package com.example.moviereserve.dto.venues;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class VenuesSetupRequestDto {
     private String name;
     @NotNull(message = "수용할 좌석 크기를 입력해주세요.")
     private int capacity;
-    @NotBlank(message = "공연장 형태를 입력해주세요. (FIXED-SEAT or STANDING)")
+    @NotBlank(message = "공연장 형태를 입력해주세요. (FIXED_SEAT or STANDING)")
     private String venuesType;
     @NotBlank(message = "예매 시작 시간을 입력해주세요.")
     private String startTime;

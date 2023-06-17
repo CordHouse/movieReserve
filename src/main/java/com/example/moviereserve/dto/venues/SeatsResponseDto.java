@@ -1,4 +1,4 @@
-package com.example.moviereserve.dto;
+package com.example.moviereserve.dto.venues;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
