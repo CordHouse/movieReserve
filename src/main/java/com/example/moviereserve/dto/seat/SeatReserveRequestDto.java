@@ -1,5 +1,6 @@
 package com.example.moviereserve.dto.seat;
 
+import com.example.moviereserve.dto.payment.PaymentInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,4 +17,7 @@ public class SeatReserveRequestDto {
     private long performanceId;
     @NotBlank(message = "예매할 좌석이 누락 되었습니다.")
     private List<SeatInfo> seats;
+    @NotNull(message = "총 가격이 누락 되었습니다.")
+    private int totalPrice;
+    private PaymentInfo paymentInfo;
 }
