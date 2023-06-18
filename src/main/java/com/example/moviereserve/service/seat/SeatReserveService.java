@@ -1,12 +1,15 @@
 package com.example.moviereserve.service.seat;
 
+import com.example.moviereserve.dto.payment.PaymentInfo;
 import com.example.moviereserve.dto.seat.SeatInfo;
 import com.example.moviereserve.dto.seat.SeatInfoResponseDto;
 import com.example.moviereserve.dto.seat.SeatReserveRequestDto;
 import com.example.moviereserve.dto.seat.SeatReserveResponseDto;
+import com.example.moviereserve.entity.payment.Payment;
 import com.example.moviereserve.entity.seat.Seat;
 import com.example.moviereserve.entity.user.User;
 import com.example.moviereserve.entity.venues.Venues;
+import com.example.moviereserve.repository.PaymentRepository;
 import com.example.moviereserve.repository.SeatRepository;
 import com.example.moviereserve.repository.VenuesRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ public class SeatReserveService {
     private static final String RESERVED = "occupied";
     private final SeatRepository seatRepository;
     private final VenuesRepository venuesRepository;
+    private final PaymentRepository paymentRepository;
 
     // 좌석 예매
     @Transactional
@@ -36,6 +40,21 @@ public class SeatReserveService {
 
             seatInfoResponseDtoList.add(new SeatInfoResponseDto().toDo(seat));
         }
+
+        doPayment(seatReserveRequestDto.getPaymentInfo(), seatReserveRequestDto.getTotalPrice(), user);
         return new SeatReserveResponseDto().toDo(venues, seatInfoResponseDtoList);
+    }
+
+    @Transactional
+    public void doPayment(PaymentInfo paymentInfo, int totalPrice, User user) {
+        Payment payment = new Payment(
+                user,
+                paymentInfo.getPaymentMethod(),
+                paymentInfo.getCardNumber(),
+                paymentInfo.getCardExpiration(),
+                paymentInfo.getCardCVV(),
+                totalPrice
+        );
+        paymentRepository.save(payment);
     }
 }
