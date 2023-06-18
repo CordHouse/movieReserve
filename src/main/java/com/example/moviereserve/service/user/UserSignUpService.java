@@ -1,4 +1,4 @@
-package com.example.moviereserve.service;
+package com.example.moviereserve.service.user;
 
 import com.example.moviereserve.dto.sign.BusinessSignUpRequestDto;
 import com.example.moviereserve.dto.sign.UserSignUpRequestDto;
