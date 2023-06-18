@@ -1,11 +1,11 @@
-package com.example.moviereserve.controller;
+package com.example.moviereserve.controller.seat;
 
-import com.example.moviereserve.dto.venues.VenuesResponseDto;
-import com.example.moviereserve.dto.venues.VenuesSetupRequestDto;
+import com.example.moviereserve.dto.seat.SeatReserveRequestDto;
+import com.example.moviereserve.dto.seat.SeatReserveResponseDto;
 import com.example.moviereserve.entity.user.User;
 import com.example.moviereserve.exception.NotFoundUserException;
 import com.example.moviereserve.repository.UserRepository;
-import com.example.moviereserve.service.venues.VenuesService;
+import com.example.moviereserve.service.seat.SeatReserveService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -19,17 +19,15 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-public class VenuesController {
-    private final VenuesService venuesService;
+public class seatController {
+    private final SeatReserveService seatReserveService;
     private final UserRepository userRepository;
 
-    // 공연장 등록 -> 사업자만 가능
-    // 일반 유저는 접근 못하게 url 설정
-    @PostMapping("/venues")
+    // 좌석 예매
+    @PostMapping("/bookings")
     @ResponseStatus(HttpStatus.OK)
-    private VenuesResponseDto venuesSetup(@RequestBody @Valid VenuesSetupRequestDto venuesSetupRequestDto) {
-        getUser();
-        return venuesService.venuesSetup(venuesSetupRequestDto);
+    public SeatReserveResponseDto reserve(@RequestBody @Valid SeatReserveRequestDto seatReserveRequestDto) {
+        return seatReserveService.reserve(seatReserveRequestDto, getUser());
     }
 
     // 유저 토큰 정보를 기반으로 유저 정보 가져오기
