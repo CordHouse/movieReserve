@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 public class Seat {
+    private static final String DEFAULT = "available";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -28,7 +29,7 @@ public class Seat {
     private String seatType;
 
     @Column(nullable = false)
-    private boolean status;
+    private String status;
 
     // 유저 연관관계
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,5 +49,11 @@ public class Seat {
     @PrePersist // DB에 Insert 되기 직전에 실행된다.
     public void createDate(){
         this.createDate = LocalDateTime.now();
+    }
+
+    public Seat(String seatNumber, String seatType) {
+        this.seatNumber = seatNumber;
+        this.seatType = seatType;
+        this.status = DEFAULT;
     }
 }
