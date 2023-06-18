@@ -2,6 +2,7 @@ package com.example.moviereserve.entity.seat;
 
 import com.example.moviereserve.entity.payment.Payment;
 import com.example.moviereserve.entity.user.User;
+import com.example.moviereserve.entity.venues.Venues;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,12 @@ public class Seat {
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+    // 공연장 연관관계
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "performance_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Venues venues;
 
     // 결제 연관관계
     @ManyToOne(fetch = FetchType.LAZY)
