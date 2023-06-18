@@ -26,4 +26,8 @@ public class Payment {
 
     @Column(nullable = false)
     private String price;
+
+    public Payment(String price) {
+        this.price = price;
+    }
 }
