@@ -17,8 +17,3 @@ public class SeatReserveRequestDto {
     @NotBlank(message = "예매할 좌석이 누락 되었습니다.")
     private List<SeatInfo> seats;
 }
-
-class SeatInfo{
-    private long seatId;
-    private String seatNumber;
-}
