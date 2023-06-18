@@ -1,4 +1,4 @@
-package com.example.moviereserve.controller;
+package com.example.moviereserve.controller.user;
 
 import com.example.moviereserve.dto.sign.BusinessSignUpRequestDto;
 import com.example.moviereserve.dto.sign.SignInRequestDto;
