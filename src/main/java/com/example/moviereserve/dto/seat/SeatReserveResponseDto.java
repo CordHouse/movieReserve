@@ -14,6 +14,6 @@ public class SeatReserveResponseDto {
     private String seatNumber;
 
     public SeatReserveResponseDto toDo(Seat seat) {
-        return new SeatReserveResponseDto();
+        return new SeatReserveResponseDto(seat.getVenues().getId(), seat.getId(), seat.getSeatNumber());
     }
 }
