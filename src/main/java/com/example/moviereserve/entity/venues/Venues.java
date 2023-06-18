@@ -1,7 +1,10 @@
 package com.example.moviereserve.entity.venues;
 
+import com.example.moviereserve.entity.user.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -29,6 +32,11 @@ public class Venues {
 
     @Column(nullable = false)
     private String venuesEnd;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false, name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
 
     @DateTimeFormat(pattern = "yyyy-mm-dd") // 공연 등록 일시
     private LocalDate createDate;
