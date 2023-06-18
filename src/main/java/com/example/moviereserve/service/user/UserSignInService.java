@@ -1,4 +1,4 @@
-package com.example.moviereserve.service;
+package com.example.moviereserve.service.user;
 
 import com.example.moviereserve.config.jwt.TokenProvider;
 import com.example.moviereserve.dto.sign.SignInRequestDto;

@@ -1,4 +1,4 @@
-package com.example.moviereserve.service;
+package com.example.moviereserve.service.venues;
 
 import com.example.moviereserve.dto.venues.VenuesResponseDto;
 import com.example.moviereserve.dto.venues.VenuesSetupRequestDto;

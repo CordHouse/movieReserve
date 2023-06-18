@@ -5,7 +5,7 @@ import com.example.moviereserve.dto.venues.VenuesSetupRequestDto;
 import com.example.moviereserve.entity.user.User;
 import com.example.moviereserve.exception.NotFoundUserException;
 import com.example.moviereserve.repository.UserRepository;
-import com.example.moviereserve.service.VenuesService;
+import com.example.moviereserve.service.venues.VenuesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
