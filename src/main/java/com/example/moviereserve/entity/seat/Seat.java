@@ -1,6 +1,5 @@
 package com.example.moviereserve.entity.seat;
 
-import com.example.moviereserve.entity.payment.Payment;
 import com.example.moviereserve.entity.user.User;
 import com.example.moviereserve.entity.venues.Venues;
 import lombok.AllArgsConstructor;
@@ -44,12 +43,6 @@ public class Seat {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Venues venues;
 
-    // 결제 연관관계
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Payment payment;
-
     // 예매 시간
     @DateTimeFormat(pattern = "YYYY-mm-dd HH:mm:ss")
     private LocalDateTime createDate;
@@ -58,9 +51,11 @@ public class Seat {
         this.createDate = LocalDateTime.now();
     }
 
-    public Seat(String seatNumber, String seatType) {
+    public Seat(String seatNumber, String seatType, User user, Venues venues) {
         this.seatNumber = seatNumber;
         this.seatType = seatType;
+        this.user = user;
+        this.venues = venues;
         this.status = DEFAULT;
     }
 }
