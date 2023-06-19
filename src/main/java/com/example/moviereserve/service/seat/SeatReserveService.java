@@ -33,7 +33,7 @@ public class SeatReserveService {
         Venues venues = venuesRepository.findById(seatReserveRequestDto.getPerformanceId()).orElseThrow();
         List<SeatInfoResponseDto> seatInfoResponseDtoList = new ArrayList<>();
         for(SeatInfo reserve : seatReserveRequestDto.getSeats()) {
-            Seat seat = seatRepository.findBySeatNumber(reserve.getSeatNumber()).orElseThrow();
+            Seat seat = seatRepository.findBySeatNumberAndVenues(reserve.getSeatNumber(), venues).orElseThrow();
             seat.setUser(user);
             seat.setStatus(RESERVED);
 
