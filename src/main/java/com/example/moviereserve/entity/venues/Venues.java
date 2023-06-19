@@ -24,14 +24,11 @@ public class Venues {
     @Column(nullable = false)
     private int capacity; // 수용량
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private VenuesType venuesType; // 공연장 형태 -> 서서 보기, 앉아서 보기
 
     @Column(nullable = false)
-    private String venuesStart;
-
-    @Column(nullable = false)
-    private String venuesEnd;
+    private String possibleTimes;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false, name = "user_id")
@@ -46,11 +43,11 @@ public class Venues {
         this.createDate = LocalDate.now();
     }
 
-    public Venues(String venuesName, int capacity, VenuesType venuesType, String venuesStart, String venuesEnd){
+    public Venues(String venuesName, int capacity, VenuesType venuesType, String possibleTimes, User user){
         this.venuesName = venuesName;
         this.capacity = capacity;
         this.venuesType = venuesType;
-        this.venuesStart = venuesStart;
-        this.venuesEnd = venuesEnd;
+        this.possibleTimes = possibleTimes;
+        this.user = user;
     }
 }
