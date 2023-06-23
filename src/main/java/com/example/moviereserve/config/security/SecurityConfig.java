@@ -23,7 +23,10 @@ public class SecurityConfig {
     private static final String[] WHITE_LIST = {
             "/businesses",
             "/users",
-            "/sign-in",
+            "/sign-in"
+    };
+    private static final String[] PERFORMANCE_WHITE_LIST = {
+            "/performances/**"
     };
 
     @Bean
@@ -46,6 +49,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, WHITE_LIST).permitAll()
+                .antMatchers(HttpMethod.GET, PERFORMANCE_WHITE_LIST).permitAll()
+                .antMatchers("/venues", "/performances").access("hasRole(\"ROLE_ADMIN\") or hasRole(\"ROLE_VENUE_MANAGER\")" +
+                        " or hasRole(\"ROLE_PERFORMANCE_MANAGER\")")
                 .antMatchers("/**").access("hasRole(\"ROLE_ADMIN\") or hasRole(\"ROLE_VENUE_MANAGER\")" +
                         " or hasRole(\"ROLE_PERFORMANCE_MANAGER\") or hasRole(\"ROLE_COMMON_MEMBER\")") // 화이트리스트 제외한 모든 경로는 유저 권한이 있어야함.
                 .anyRequest().authenticated()
