@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-public class seatController {
+public class SeatController {
     private final SeatReserveService seatReserveService;
     private final UserRepository userRepository;
 
