@@ -1,5 +1,6 @@
 package com.example.moviereserve.entity.venues;
 
+import com.example.moviereserve.entity.seat.Seat;
 import com.example.moviereserve.entity.user.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -34,6 +36,9 @@ public class Venues {
     @JoinColumn(nullable = false, name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
+
+    @OneToMany(mappedBy = "venues", fetch = FetchType.LAZY)
+    private List<Seat> seat;
 
     @DateTimeFormat(pattern = "yyyy-mm-dd") // 공연 등록 일시
     private LocalDate createDate;
