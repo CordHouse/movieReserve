@@ -7,6 +7,7 @@ import com.example.moviereserve.entity.seat.Seat;
 import com.example.moviereserve.entity.user.User;
 import com.example.moviereserve.entity.venues.Venues;
 import com.example.moviereserve.exception.NotFoundPerformanceException;
+import com.example.moviereserve.exception.PerformanceAlreadyRegisterException;
 import com.example.moviereserve.repository.PerformanceRepository;
 import com.example.moviereserve.repository.PriceRepository;
 import com.example.moviereserve.repository.SeatRepository;
@@ -30,13 +31,20 @@ public class PerformanceService {
     // 공연 등록
     @Transactional
     public PerformanceResponseDto register(PerformanceRequestDto performanceRequestDto, User user) {
+        Venues venues = venuesRepository.findById(performanceRequestDto.getVenueId()).orElseThrow(); // 해당 공연장이 없을 경우 예외 처리
+
+        // 이미 등록된 공연 예외 처리
+        Performance performanceCheck = performanceRepository.findByVenues(venues);
+        if(performanceCheck != null) {
+            throw new PerformanceAlreadyRegisterException();
+        }
+
         Price price = new Price(
                 performanceRequestDto.getPrices().getVip(),
                 performanceRequestDto.getPrices().getCommon()
         );
         priceRepository.save(price);
 
-        Venues venues = venuesRepository.findById(performanceRequestDto.getVenueId()).orElseThrow(); // 해당 공연장이 없을 경우 예외 처리
 
         Performance performance = new Performance(
                 venues,
@@ -56,7 +64,7 @@ public class PerformanceService {
     }
 
     // 공연 정보 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public PerformanceInfoResponseDto getPerformanceInfo() {
         List<Performance> performance = performanceRepository.findAll();
         if(performance.isEmpty()) {
@@ -69,7 +77,7 @@ public class PerformanceService {
     }
 
     // 공연 잔여 좌석 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public PerformanceSeatsInfoResponseDto getPerformanceSeatsInfo(long id) {
         Performance performance = performanceRepository.findById(id).orElseThrow();
         List<Seat> seat = seatRepository.findAllByVenues(performance.getVenues()).orElseThrow();
