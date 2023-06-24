@@ -3,7 +3,6 @@ package com.example.moviereserve.advice;
 import com.example.moviereserve.exception.*;
 import com.example.moviereserve.response.Response;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -44,5 +43,17 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response notFoundPerformanceException() {
         return Response.failure(500, "공연정보가 존재하지 않습니다.");
+    }
+
+    @ExceptionHandler(SeatReservedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response seatReservedException() {
+        return Response.failure(500, "이미 예약된 좌석이 포함되어 있습니다.");
+    }
+
+    @ExceptionHandler(PerformanceAlreadyRegisterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Response performanceAlreadyRegisterException() {
+        return Response.failure(500, "이미 등록된 공연 정보입니다.");
     }
 }
